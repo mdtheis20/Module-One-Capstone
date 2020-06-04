@@ -22,9 +22,9 @@ namespace Capstone.Models
             itemPath = "..\\..\\..\\..\\vendingmachine.csv";
         }
 
-        public Dictionary<string,List<VendingItem>> Load()
+        public Dictionary<string, VendingItem> Load()
         {
-            Dictionary<string, List<VendingItem>> list = new Dictionary<string, List<VendingItem>>();
+            Dictionary<string, VendingItem> list = new Dictionary<string, VendingItem>();
             if (!File.Exists(itemPath))
             {
                 return list;
@@ -36,8 +36,8 @@ namespace Capstone.Models
                     string line = rdr.ReadLine();
                     string[] fields = line.Split("|");
                     decimal cost = decimal.Parse(fields[2]);
-                    VendingItem item = new VendingItem(fields[0], fields[1], cost, fields[3]);
-                    list.Add(item.SlotLocation, item,);
+                    VendingItem item = new VendingItem(fields[0], fields[1], cost, fields[3], 5);
+                    list.Add(item.SlotLocation, item);
                 } 
             }
             return list;

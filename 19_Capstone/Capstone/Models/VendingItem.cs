@@ -13,13 +13,15 @@ namespace Capstone.Models
         public string Type { get; }
 
         public decimal Price { get; }
+        public int Count { get; set; }
 
-        public VendingItem(string slot, string name, decimal price, string type)
+        public VendingItem(string slot, string name, decimal price, string type, int count)
             {
             this.SlotLocation = slot;
             this.ProductName = name;
             this.Price = price;
             this.Type = type;
+            this.Count = count;
 
             }
 

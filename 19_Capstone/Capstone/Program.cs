@@ -1,4 +1,5 @@
 ﻿using System;
+using Capstone.Models;
 
 namespace Capstone
 {
@@ -8,6 +9,7 @@ namespace Capstone
         {
 
             Console.WriteLine("Go Browns!");
+
         }
     }
 }
