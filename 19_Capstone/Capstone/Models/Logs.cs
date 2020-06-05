@@ -17,8 +17,7 @@ namespace Capstone.Models
         {
             aPath = "..\\..\\..\\LogsLocations\\Log.txt";
             //TODO: format file name for log
-            sPath = $"..\\..\\..\\LogsLocations\\SalesReport";
-
+            sPath = $"..\\..\\..\\LogsLocations\\SalesReport.txt";
             itemPath = "..\\..\\..\\..\\vendingmachine.csv";
         }
 
@@ -43,23 +42,33 @@ namespace Capstone.Models
             return list;
         }
 
-        public void EndOfDay(List<string> salesLog, List<string> auditLog)
+        public bool EndOfDay(List<string> salesLog, List<string> auditLog)
         {
-            using (StreamWriter writer = new StreamWriter(aPath, true))
+            
+            try
             {
-                foreach(string line in auditLog)
+                using (StreamWriter writer = new StreamWriter(aPath, true))
                 {
-                    writer.WriteLine();
+                    foreach (string line in auditLog)
+                    {
+                        writer.WriteLine(line);
+                    }
                 }
+
+                using (StreamWriter salesWriter = new StreamWriter(sPath, false))
+                {
+                    foreach (string line in salesLog)
+                    {
+                        salesWriter.WriteLine(line);
+                    }
+                }
+            }
+            catch
+            {
+                return false;
             }
             
-            using (StreamWriter salesWriter = new StreamWriter(sPath, false))
-            {
-                foreach(string line in salesLog)
-                {
-                    salesWriter.WriteLine();
-                }
-            }
+            return true;
         }
     }
 }

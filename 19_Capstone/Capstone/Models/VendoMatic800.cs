@@ -14,7 +14,7 @@ namespace Capstone.Models
         private MoneyManagement manager;
         private Logs logs;
 
-        public Dictionary<string, VendingItem> ProductLeft { get; private set}
+        public Dictionary<string, VendingItem> ProductLeft { get; private set; }
 
         public VendoMatic800()
         {
