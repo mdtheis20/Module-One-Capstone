@@ -27,7 +27,7 @@ namespace CapstoneTests
 
             };
             Logs logs = new Logs();
-            logs.EndOfDay(salesLog, testList);
+            logs.EndOfDay(testList);
            
         }
     }

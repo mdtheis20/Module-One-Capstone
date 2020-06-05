@@ -15,18 +15,16 @@ namespace Capstone.Models
             CurrentMoney = 0;
         }
 
-
-
-        private Dictionary<string, decimal> Amounts = new Dictionary<string, decimal>()
-        {
-            {"n", .05M },
-            {"d", .1M },
-            {"q", .25M },
-            {"1", 1 },
-            {"2", 2 },
-            {"5", 5 },
-            {"10", 10 }
-        };
+        //private Dictionary<string, decimal> Amounts = new Dictionary<string, decimal>()
+        //{
+        //    {"n", .05M },
+        //    {"d", .1M },
+        //    {"q", .25M },
+        //    {"1", 1 },
+        //    {"2", 2 },
+        //    {"5", 5 },
+        //    {"10", 10 }
+        //};
 
 
         public bool Purchase(decimal cost)
@@ -35,9 +33,6 @@ namespace Capstone.Models
             {
                 decimal startingMoney = CurrentMoney;
                 CurrentMoney = CurrentMoney - cost;
-
-                
-
                 return true;
             }
             else
