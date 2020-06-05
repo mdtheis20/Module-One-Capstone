@@ -13,7 +13,7 @@ namespace Capstone.Models
         private List<string> auditLog;
 
         public MoneyManagement manager;
-        private Logs logs;
+        public Logs logs;
 
         //public MainMenu MainMenu = new MainMenu();
         //public SubMenu1 PurchaseMenu = new SubMenu1("PurchaseMenu");
@@ -26,15 +26,19 @@ namespace Capstone.Models
 
 
 
+        private Dictionary<string, string> auditLogWriter = new Dictionary<string, string>()
+        {
+            {"fm", "FEED MONEY" }, {"gc", "GIVE CHANGE"}
+        };
 
-
+        
 
         public Dictionary<string, VendingItem> ProductLeft { get; private set; }
 
         public VendoMatic800()
         {
             logs = new Logs();
-            manager = new MoneyManagement();
+            manager = new MoneyManagement(this);
             ProductLeft = logs.Load();
 
 
@@ -56,8 +60,10 @@ namespace Capstone.Models
 
             if (isEnoughMoney && isThereEnoughItems)
             {
+                decimal startingMoney = manager.CurrentMoney;
                 ProductLeft[slotNumber].Count--;
                 manager.Purchase(priceOfProduct);
+                this.AuditWriter(slotNumber, startingMoney);
                 return ProductLeft[slotNumber].ToString();
             }
             else if (!isThereEnoughItems)
@@ -84,7 +90,27 @@ namespace Capstone.Models
 
         public void EndOfDay()
         {
-            logs.EndOfDay(salesLog, auditLog);
+            logs.EndOfDay(auditLog);
+        }
+
+        public void AuditWriter(string key, decimal startingMoney)
+        {
+            string time = DateTime.Now.ToString();
+            string money = $"{startingMoney.ToString("c")} {manager.CurrentMoney.ToString("c")}";
+           string transactionType = "";
+            string entry = time + " " + transactionType + " " + money;
+
+            if (auditLogWriter.ContainsKey(key))
+            {
+                transactionType = auditLogWriter[key];
+            }
+            else if (ProductLeft.ContainsKey(key))
+            {
+                transactionType = ProductLeft[key].ProductName + " " +  ProductLeft[key].SlotLocation;
+            } 
+
+            auditLog.Add(entry);
+
         }
 
 

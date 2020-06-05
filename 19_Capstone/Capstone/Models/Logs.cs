@@ -42,7 +42,7 @@ namespace Capstone.Models
             return list;
         }
 
-        public bool EndOfDay(List<string> salesLog, List<string> auditLog)
+        public bool EndOfDay(List<string> auditLog)
         {
             
             try
@@ -55,13 +55,7 @@ namespace Capstone.Models
                     }
                 }
 
-                using (StreamWriter salesWriter = new StreamWriter(sPath, false))
-                {
-                    foreach (string line in salesLog)
-                    {
-                        salesWriter.WriteLine(line);
-                    }
-                }
+
             }
             catch
             {
@@ -72,3 +66,13 @@ namespace Capstone.Models
         }
     }
 }
+
+//DateTime to the second
+//what the action was (feed money or purchase)
+//The current money before the transaction
+//the current money after the transaction
+//> 01/01/2016 12:00:00 PM FEED MONEY: $5.00 $5.00
+//         >01/01/2016 12:00:15 PM FEED MONEY: $5.00 $10.00
+//         >01/01/2016 12:00:20 PM Crunchie B4 $10.00 $8.50
+//         >01/01/2016 12:01:25 PM Cowtales B2 $8.50 $7.50
+//         >01/01/2016 12:01:35 PM GIVE CHANGE: $7.50 $0.00

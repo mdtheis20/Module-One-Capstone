@@ -8,9 +8,10 @@ namespace Capstone.Models
     {
         public decimal CurrentMoney { get; private set; }
 
-
-        public MoneyManagement()
+        private VendoMatic800 Machine;
+        public MoneyManagement(VendoMatic800 machine)
         {
+            Machine = machine;
             CurrentMoney = 0;
         }
 
@@ -32,7 +33,11 @@ namespace Capstone.Models
         {
             if (CurrentMoney >= cost)
             {
+                decimal startingMoney = CurrentMoney;
                 CurrentMoney = CurrentMoney - cost;
+
+                
+
                 return true;
             }
             else
@@ -44,8 +49,9 @@ namespace Capstone.Models
 
         public void FeedMoney(decimal amount)
         {
+            decimal startingMoney = CurrentMoney;
             CurrentMoney = CurrentMoney + amount;
-            
+            Machine.AuditWriter("fm", startingMoney);
         }
 
         public string GiveChange()
@@ -73,9 +79,9 @@ namespace Capstone.Models
                 change = change - .05M;
                 nCounter++;
             }
-
+            decimal startingMoney = CurrentMoney;
             CurrentMoney = change;
-
+            Machine.AuditWriter("gc", startingMoney);
             return $"Your change back is {qCounter} quarters, {dCounter} dimes, and {nCounter} nickels.";
 
 

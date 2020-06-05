@@ -1,6 +1,7 @@
 ﻿using Capstone.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CLI
 {
@@ -56,7 +57,19 @@ namespace CLI
                     sm.Run();
                     return true;    // Keep running the main menu
                 case "3":
+                    Machine.logs.EndOfDay();
                     return false;
+                    //create hidden item
+                case "4":
+                    using (StreamWriter salesWriter = new StreamWriter(sPath, false))
+                    {
+                        foreach (string line in salesLog)
+                        {
+                            salesWriter.WriteLine(line);
+                        }
+                    }
+
+
             }
             return true;
         }
