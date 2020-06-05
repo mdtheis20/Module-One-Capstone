@@ -10,7 +10,8 @@ namespace Capstone.Models
     {
         private List<string> salesLog;
 
-        private List<string> auditLog;
+        private List<string> auditLog = new List<string>();
+        
 
         public MoneyManagement manager;
         public Logs logs;
@@ -98,7 +99,6 @@ namespace Capstone.Models
             string time = DateTime.Now.ToString();
             string money = $"{startingMoney.ToString("c")} {manager.CurrentMoney.ToString("c")}";
            string transactionType = "";
-            string entry = time + " " + transactionType + " " + money;
 
             if (auditLogWriter.ContainsKey(key))
             {
@@ -107,7 +107,8 @@ namespace Capstone.Models
             else if (ProductLeft.ContainsKey(key))
             {
                 transactionType = ProductLeft[key].ProductName + " " +  ProductLeft[key].SlotLocation;
-            } 
+            }
+            string entry = time + " " + transactionType + " " + money;
 
             auditLog.Add(entry);
 

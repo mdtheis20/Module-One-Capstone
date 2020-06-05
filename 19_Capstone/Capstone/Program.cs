@@ -17,8 +17,9 @@ namespace Capstone
             Console.WriteLine("Go Browns!");
             MainMenu main = new MainMenu(machine);
             main.Run();
+            machine.EndOfDay();
 
-            
+
         }
     }
 }

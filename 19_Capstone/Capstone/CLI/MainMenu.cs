@@ -30,9 +30,9 @@ namespace CLI
             // A Sample menu.  Build the dictionary here
             this.menuOptions.Add("1", "Display Vending Machine Items");
             this.menuOptions.Add("2", "Purchase");
-            this.menuOptions.Add("3", "Exit");
+            this.menuOptions.Add("Q", "Quit");
             //TODO Need to hide this option
-            this.quitKey = "3";
+            this.quitKey = "Q";
         }
 
         /// <summary>
@@ -56,18 +56,18 @@ namespace CLI
                     PurchaseMenu sm = new PurchaseMenu(Machine);
                     sm.Run();
                     return true;    // Keep running the main menu
-                case "3":
-                    Machine.logs.EndOfDay();
-                    return false;
+                //case "3":
+                   
+                    //return false;
                     //create hidden item
-                case "4":
-                    using (StreamWriter salesWriter = new StreamWriter(sPath, false))
-                    {
-                        foreach (string line in salesLog)
-                        {
-                            salesWriter.WriteLine(line);
-                        }
-                    }
+                //case "4":
+                //    using (StreamWriter salesWriter = new StreamWriter(sPath, false))
+                //    {
+                //        foreach (string line in salesLog)
+                //        {
+                //            salesWriter.WriteLine(line);
+                //        }
+                //    }
 
 
             }
