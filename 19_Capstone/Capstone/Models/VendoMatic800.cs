@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using CLI;
 
 namespace Capstone.Models
 {
@@ -14,6 +15,20 @@ namespace Capstone.Models
         private MoneyManagement manager;
         private Logs logs;
 
+        public MainMenu MainMenu = new MainMenu();
+        public SubMenu1 PurchaseMenu = new SubMenu1("PurchaseMenu");
+        public SubMenu1 SelectProduct = new SubMenu1("SelectProduct");
+        public SubMenu1 FeedMoney = new SubMenu1("FeedMoney");
+        public SubMenu1 DisplayItems = new SubMenu1("DisplayItems");
+        public SubMenu1 DisplayMessage = new SubMenu1("DisplayMessage");
+
+
+
+
+
+
+
+
         public Dictionary<string, VendingItem> ProductLeft { get; private set; }
 
         public VendoMatic800()
@@ -22,6 +37,7 @@ namespace Capstone.Models
             manager = new MoneyManagement();
             ProductLeft = logs.Load();
 
+
         }
 
         public string Purchase(string slotNumber)
@@ -29,9 +45,9 @@ namespace Capstone.Models
             //CLI menu takes care to check if slot is valid           
             // is there is enough money available
             decimal priceOfProduct = ProductLeft[slotNumber].Price;
-            bool isEnoughMoney = ( manager.CurrentMoney >= priceOfProduct);
+            bool isEnoughMoney = (manager.CurrentMoney >= priceOfProduct);
             bool isThereEnoughItems = ProductLeft[slotNumber].Count > 0;
-            
+
 
             if (isEnoughMoney && isThereEnoughItems)
             {
@@ -49,6 +65,20 @@ namespace Capstone.Models
                 //going back to purchase menu is taken care of by CLI
             }
         }
+
         
+
+
+
     }
 }
+
+    
+
+
+
+
+        
+
+    
+

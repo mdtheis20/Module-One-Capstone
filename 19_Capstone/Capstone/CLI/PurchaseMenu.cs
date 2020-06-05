@@ -13,8 +13,8 @@ namespace CLI
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public SubMenu1(/** Variables may be passed in... ***/) :
-            base("Sub-Menu 1")
+        public SubMenu1(string Purchase) :
+            base(Purchase)
         {
             // Store any values passed in....
         }
