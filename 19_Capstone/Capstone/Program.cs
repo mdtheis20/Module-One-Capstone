@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Capstone.Models;
+using CLI;
 
 namespace Capstone
 {
@@ -8,9 +9,11 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-
+            VendoMatic800 machine = new VendoMatic800();
+            
             Console.WriteLine("Go Browns!");
-
+            MainMenu main = new MainMenu(machine);
+            main.Run();
         }
     }
 }

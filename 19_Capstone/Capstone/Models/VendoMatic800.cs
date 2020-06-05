@@ -15,12 +15,12 @@ namespace Capstone.Models
         private MoneyManagement manager;
         private Logs logs;
 
-        public MainMenu MainMenu = new MainMenu();
-        public SubMenu1 PurchaseMenu = new SubMenu1("PurchaseMenu");
-        public SubMenu1 SelectProduct = new SubMenu1("SelectProduct");
-        public SubMenu1 FeedMoney = new SubMenu1("FeedMoney");
-        public SubMenu1 DisplayItems = new SubMenu1("DisplayItems");
-        public SubMenu1 DisplayMessage = new SubMenu1("DisplayMessage");
+        //public MainMenu MainMenu = new MainMenu();
+        //public SubMenu1 PurchaseMenu = new SubMenu1("PurchaseMenu");
+        //public SubMenu1 SelectProduct = new SubMenu1("SelectProduct");
+        //public SubMenu1 FeedMoney = new SubMenu1("FeedMoney");
+        //public SubMenu1 DisplayItems = new SubMenu1("DisplayItems");
+        //public SubMenu1 DisplayMessage = new SubMenu1("DisplayMessage");
 
 
 

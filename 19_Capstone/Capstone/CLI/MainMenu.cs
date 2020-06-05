@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CLI
@@ -10,15 +11,16 @@ namespace CLI
     {
         // You may want to store some private variables here.  YOu may want those passed in 
         // in the constructor of this menu
-
+        private VendoMatic800 Machine;
         /// <summary>
         /// Constructor adds items to the top-level menu. You will likely have parameters  passed in
         /// here...
         /// </summary>
-        public MainMenu(/* Add any needed parameters here */) : base("Main Menu")
+        public MainMenu(VendoMatic800 machine) : base("Main Menu")
         {
             // Set any private variables here.
-           //protected string 
+            //protected string 
+            Machine = machine;
 
         }
 
@@ -30,6 +32,7 @@ namespace CLI
             this.menuOptions.Add("3", "Exit");
             //TODO Need to hide this option
             this.menuOptions.Add("4", "");
+            this.quitKey = "3";
         }
 
         /// <summary>
@@ -43,21 +46,21 @@ namespace CLI
             switch (choice)
             {
                 case "1": // Do whatever option 1 is. You may prompt the user for more information
-                            // (using the Helper methods), and then pass those values into some 
-                            //business object to get something done.
-                    int i1 = GetInteger("Enter the first integer: ");
-                    int i2 = GetInteger("Enter the second integer: ");
-                    Console.WriteLine($"{i1} + {i2} = {i1+i2}");
+                          // (using the Helper methods), and then pass those values into some 
+                          //business object to get something done.
+                    foreach (var line in Machine.ProductLeft)
+                    {
+                        string displayName = line.Value.ProductName;
+                        string displayPrice = line.Value.Price.ToString("c");
+                        int displayNumber = line.Value.Count;
+                        Console.WriteLine($"{ line.Key} {displayName} {displayPrice} {displayNumber} left");
+                    }
+
                     Pause("Press enter to continue");
                     return true;    // Keep running the main menu
-                case "2": // Do whatever option 2 is
-                    string name = GetString("What is your name?");
-                    WriteError($"Not yet implemented, {name}.");
-                    Pause("");
-                    return true;    // Keep running the main menu
-                case "3": 
+                case "2": 
                     // Create and show the sub-menu
-                    SubMenu1 sm = new SubMenu1();
+                    PurchaseMenu sm = new PurchaseMenu(Machine);
                     sm.Run();
                     return true;    // Keep running the main menu
             }

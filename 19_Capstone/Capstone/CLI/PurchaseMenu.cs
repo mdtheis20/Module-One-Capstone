@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CLI
@@ -6,17 +7,18 @@ namespace CLI
     /// <summary>
     /// The top-level menu in our Market Application
     /// </summary>
-    public class SubMenu1 : CLIMenu
+    public class PurchaseMenu : CLIMenu
     {
         // Store any private variables here....
-
+        private VendoMatic800 Machine;
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public SubMenu1(string Purchase) :
-            base(Purchase)
+        public PurchaseMenu(VendoMatic800 machine) :
+            base("Purchase Menu")
         {
             // Store any values passed in....
+            Machine = machine;
         }
 
         protected override void SetMenuOptions()
