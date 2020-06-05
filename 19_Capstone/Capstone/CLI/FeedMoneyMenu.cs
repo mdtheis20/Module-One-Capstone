@@ -7,15 +7,15 @@ namespace CLI
     /// <summary>
     /// The top-level menu in our Market Application
     /// </summary>
-    public class PurchaseMenu : CLIMenu
+    public class FeedMoneyMenu : CLIMenu
     {
         // Store any private variables here....
         private VendoMatic800 Machine;        
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public PurchaseMenu(VendoMatic800 machine) :
-            base("Purchase Menu")
+        public FeedMoneyMenu(VendoMatic800 machine) :
+            base("Feed Money")
         {
             // Store any values passed in....
             Machine = machine;
@@ -23,9 +23,11 @@ namespace CLI
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "Feed Money");
-            this.menuOptions.Add("2", "Select Product");
-            this.menuOptions.Add("3", "Finish Transaction");
+            this.menuOptions.Add("1", "$1");
+            this.menuOptions.Add("2", "$2");
+            this.menuOptions.Add("5", "$5");
+            this.menuOptions.Add("10", "$10");
+            this.menuOptions.Add("B", "Purchase Menu");
             //this.quitKey = "B";
         }
 
@@ -39,27 +41,27 @@ namespace CLI
         {
             switch (choice)
             {
-                case "1": // Do whatever option 1 is
-                    FeedMoneyMenu feedMoney = new FeedMoneyMenu(Machine);
-                    feedMoney.Run();                    
-                    WriteError("Not yet implemented");
+                case "1": // Do whatever option 1 is                    
+                    Machine.manager.FeedMoney(1M);
                     Pause("");
                     return true;
-                case "2": // Do whatever option 2 is
-                    Machine.Display();
-                    Console.Write("Enter slot location: ");
-                    string slotLocation = Console.ReadLine().ToUpper();
-                    string message = Machine.Purchase(slotLocation);
-                    Console.WriteLine(message);
-                    WriteError("message");
+                case "2":                   
+                    Machine.manager.FeedMoney(2M);
                     Pause("");
                     return true;
-                case "3":
-                    string change = Machine.manager.GiveChange();
-                    Console.WriteLine(change);
+                case "5":
+                    Machine.manager.FeedMoney(5M);
                     Pause("");
-                    MainMenu main = new MainMenu(Machine);
-                    main.Run();
+                    return true;
+                case "10":
+                    Machine.manager.FeedMoney(10M);
+                    Pause("");
+                    return true;
+                case "B": // Do whatever option 2 is
+                    PurchaseMenu purchaseMenu = new PurchaseMenu(Machine);
+                    purchaseMenu.Run();
+                    WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
+                    Pause("");
                     return false;
             }
             return true;

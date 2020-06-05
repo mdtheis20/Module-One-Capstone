@@ -31,7 +31,6 @@ namespace CLI
             this.menuOptions.Add("2", "Purchase");
             this.menuOptions.Add("3", "Exit");
             //TODO Need to hide this option
-            this.menuOptions.Add("4", "");
             this.quitKey = "3";
         }
 
@@ -48,14 +47,7 @@ namespace CLI
                 case "1": // Do whatever option 1 is. You may prompt the user for more information
                           // (using the Helper methods), and then pass those values into some 
                           //business object to get something done.
-                    foreach (var line in Machine.ProductLeft)
-                    {
-                        string displayName = line.Value.ProductName;
-                        string displayPrice = line.Value.Price.ToString("c");
-                        int displayNumber = line.Value.Count;
-                        Console.WriteLine($"{ line.Key} {displayName} {displayPrice} {displayNumber} left");
-                    }
-
+                    Machine.Display();
                     Pause("Press enter to continue");
                     return true;    // Keep running the main menu
                 case "2": 
@@ -63,6 +55,8 @@ namespace CLI
                     PurchaseMenu sm = new PurchaseMenu(Machine);
                     sm.Run();
                     return true;    // Keep running the main menu
+                case "3":
+                    return false;
             }
             return true;
         }

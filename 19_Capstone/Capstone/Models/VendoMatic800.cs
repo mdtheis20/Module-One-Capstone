@@ -12,7 +12,7 @@ namespace Capstone.Models
 
         private List<string> auditLog;
 
-        private MoneyManagement manager;
+        public MoneyManagement manager;
         private Logs logs;
 
         //public MainMenu MainMenu = new MainMenu();
@@ -44,10 +44,15 @@ namespace Capstone.Models
         {
             //CLI menu takes care to check if slot is valid           
             // is there is enough money available
+            bool isValidCode = ProductLeft.ContainsKey(slotNumber);
+            if (!isValidCode)
+            {
+                return "Invalid Selection";
+            }
+
             decimal priceOfProduct = ProductLeft[slotNumber].Price;
             bool isEnoughMoney = (manager.CurrentMoney >= priceOfProduct);
             bool isThereEnoughItems = ProductLeft[slotNumber].Count > 0;
-
 
             if (isEnoughMoney && isThereEnoughItems)
             {
@@ -66,7 +71,21 @@ namespace Capstone.Models
             }
         }
 
-        
+        public void Display()
+        {
+            foreach (var line in this.ProductLeft)
+            {
+                string displayName = line.Value.ProductName;
+                string displayPrice = line.Value.Price.ToString("c");
+                int displayNumber = line.Value.Count;
+                Console.WriteLine($"{ line.Key} {displayName} {displayPrice} {displayNumber} left");
+            }
+        }
+
+        public void EndOfDay()
+        {
+            logs.EndOfDay(salesLog, auditLog);
+        }
 
 
 
