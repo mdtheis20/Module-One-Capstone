@@ -42,7 +42,7 @@ namespace CLI
                 case "1": // Do whatever option 1 is
                     FeedMoneyMenu feedMoney = new FeedMoneyMenu(Machine);
                     feedMoney.Run();                    
-                    WriteError("Not yet implemented");
+                    
                     Pause("");
                     return true;
                 case "2": // Do whatever option 2 is
@@ -51,7 +51,7 @@ namespace CLI
                     string slotLocation = Console.ReadLine().ToUpper();
                     string message = Machine.Purchase(slotLocation);
                     Console.WriteLine(message);
-                    WriteError("message");
+                  
                     Pause("");
                     return true;
                 case "3":

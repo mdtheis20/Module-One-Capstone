@@ -60,7 +60,7 @@ namespace CLI
                 case "B": // Do whatever option 2 is
                     PurchaseMenu purchaseMenu = new PurchaseMenu(Machine);
                     purchaseMenu.Run();
-                    WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
+                    
                     Pause("");
                     return false;
             }
