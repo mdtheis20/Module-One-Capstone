@@ -59,16 +59,17 @@ namespace CLI
                 BeforeDisplayMenu();
 
                 Console.WriteLine("\r\nPlease make a selection:");
+                Console.WriteLine();
                 foreach (KeyValuePair<string, string> menuItem in menuOptions)
                 {
-                    Console.WriteLine($"{menuItem.Key} - {menuItem.Value}");
+                    Console.WriteLine($"\t{menuItem.Key} - {menuItem.Value}");
                 }
 
                 AfterDisplayMenu();
 
                 string choice = GetString("Selection:").ToUpper();
 
-                if (menuOptions.ContainsKey(choice))
+                if (menuOptions.ContainsKey(choice) || choice == "S")
                 {
                     if (choice == quitKey)
                     {
@@ -200,6 +201,7 @@ namespace CLI
             bool resultValue = false;
             while (true)
             {
+                Console.WriteLine();
                 Console.Write(message + " ");
                 string userInput = Console.ReadLine().Trim();
                 if (userInput.ToUpper() == "Y")
@@ -234,6 +236,7 @@ namespace CLI
         {
             while (true)
             {
+                Console.WriteLine();
                 Console.Write(message + " ");
                 string userInput = Console.ReadLine().Trim();
                 if (!String.IsNullOrEmpty(userInput))
@@ -253,7 +256,8 @@ namespace CLI
         /// <param name="message">Displays a message to the user and then waits for them to hit Return.</param>
         static public void Pause(string message)
         {
-            Console.Write(message + " Press Enter to continue.");
+            Console.WriteLine();
+            Console.Write(message+ " Press Enter to continue.");
             Console.ReadLine();
         }
 
@@ -276,6 +280,7 @@ namespace CLI
 
         static public void WriteError(string message)
         {
+            Console.WriteLine();
             SetColor(ConsoleColor.Red);
             Console.WriteLine(message);
             ResetColor();

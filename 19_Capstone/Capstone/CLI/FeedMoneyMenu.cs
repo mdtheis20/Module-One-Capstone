@@ -58,11 +58,9 @@ namespace CLI
                     Pause("");
                     return true;
                 case "B": // Do whatever option 2 is
-                    PurchaseMenu purchaseMenu = new PurchaseMenu(Machine);
-                    purchaseMenu.Run();
-                    
-                    Pause("");
                     return false;
+                case "S": //hidden sales log print does nothing here
+                    return true;
             }
             return true;
         }
@@ -76,6 +74,7 @@ namespace CLI
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
+            Console.WriteLine();
             Console.WriteLine($"Current Money Provided: {Machine.manager.CurrentMoney.ToString("c")}");
             ResetColor();
         }
@@ -83,7 +82,7 @@ namespace CLI
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Insert Bills Here"));
             ResetColor();
         }
 

@@ -42,10 +42,12 @@ namespace CLI
                 case "1": // Do whatever option 1 is
                     FeedMoneyMenu feedMoney = new FeedMoneyMenu(Machine);
                     feedMoney.Run();                    
-                    
                     Pause("");
+                    //feedMoney.Run();
                     return true;
                 case "2": // Do whatever option 2 is
+                    Console.Clear();
+                    PrintHeader();
                     Machine.Display();
                     Console.Write("Enter slot location: ");
                     string slotLocation = Console.ReadLine().ToUpper();
@@ -58,9 +60,9 @@ namespace CLI
                     string change = Machine.manager.GiveChange();
                     Console.WriteLine(change);
                     Pause("");
-                    MainMenu main = new MainMenu(Machine);
-                    main.Run();
                     return false;
+                case "S":  //hidden sales log print does nothing here
+                    return true;
             }
             return true;
         }
@@ -74,6 +76,7 @@ namespace CLI
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
+            Console.WriteLine();
             Console.WriteLine($"Current Money Provided: {Machine.manager.CurrentMoney.ToString("c")}");
             ResetColor();
         }
@@ -81,7 +84,7 @@ namespace CLI
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Purchase Menu"));
             ResetColor();
         }
 

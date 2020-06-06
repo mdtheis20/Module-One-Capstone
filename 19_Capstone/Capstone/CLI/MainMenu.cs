@@ -30,9 +30,9 @@ namespace CLI
             // A Sample menu.  Build the dictionary here
             this.menuOptions.Add("1", "Display Vending Machine Items");
             this.menuOptions.Add("2", "Purchase");
-            this.menuOptions.Add("Q", "Quit");
+            this.menuOptions.Add("3", "Exit");            
             //TODO Need to hide this option
-            this.quitKey = "Q";
+            this.quitKey = "3";
         }
 
         /// <summary>
@@ -48,26 +48,30 @@ namespace CLI
                 case "1": // Do whatever option 1 is. You may prompt the user for more information
                           // (using the Helper methods), and then pass those values into some 
                           //business object to get something done.
+                    Console.Clear();
+                    PrintHeader();
                     Machine.Display();
-                    Pause("Press enter to continue");
+                    Pause("");
                     return true;    // Keep running the main menu
                 case "2": 
                     // Create and show the sub-menu
                     PurchaseMenu sm = new PurchaseMenu(Machine);
                     sm.Run();
                     return true;    // Keep running the main menu
-                //case "3":
-                   
-                    //return false;
+                case "3":
+                    return false;
                     //create hidden item
-                //case "4":
-                //    using (StreamWriter salesWriter = new StreamWriter(sPath, false))
-                //    {
-                //        foreach (string line in salesLog)
-                //        {
-                //            salesWriter.WriteLine(line);
-                //        }
-                //    }
+                case "S": //hidden sales log print
+                    Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Go Browns!!"));
+                    Machine.logs.PrintSalesLog();
+                    return true;
+                    //    using (StreamWriter salesWriter = new StreamWriter(sPath, false))
+                    //    {
+                    //        foreach (string line in salesLog)
+                    //        {
+                    //            salesWriter.WriteLine(line);
+                    //        }
+                    //    }
 
 
             }
@@ -83,7 +87,7 @@ namespace CLI
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Yellow);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Main Menu"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("VendoMatic 800"));
             ResetColor();
         }
     }
