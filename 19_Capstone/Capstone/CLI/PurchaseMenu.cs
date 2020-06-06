@@ -52,8 +52,7 @@ namespace CLI
                     Console.Write("Enter slot location: ");
                     string slotLocation = Console.ReadLine().ToUpper();
                     string message = Machine.Purchase(slotLocation);
-                    Console.WriteLine(message);
-                  
+                    Console.WriteLine(Figgle.FiggleFonts.Standard.Render(message));
                     Pause("");
                     return true;
                 case "3":

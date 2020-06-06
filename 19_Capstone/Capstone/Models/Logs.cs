@@ -11,6 +11,19 @@ namespace Capstone.Models
         private string sPath { get; }
         private string itemPath { get; }
         private Dictionary<string, int> salesLog = new Dictionary<string, int>();
+        private string salesLogPathName
+        {
+            get
+            {
+                string year = DateTime.Now.Year.ToString();
+                string month = DateTime.Now.Month.ToString();
+                string day = DateTime.Now.Day.ToString();
+                string hours = DateTime.Now.Hour.ToString();
+                string minutes = DateTime.Now.Minute.ToString();
+
+                return year + month + day + hours + minutes;
+            }
+        }
         public VendoMatic800 Machine;
 
 
@@ -18,7 +31,7 @@ namespace Capstone.Models
         {
             aPath = "..\\..\\..\\LogsLocations\\Log.txt";
             //TODO: format file name for log
-            sPath = $"..\\..\\..\\LogsLocations\\SalesReport.txt";
+            sPath = $"..\\..\\..\\LogsLocations\\SalesReport{salesLogPathName}.txt";
             itemPath = "..\\..\\..\\..\\vendingmachine.csv";
             SalesLogConstructor();
             Machine = machine;
@@ -143,7 +156,7 @@ namespace Capstone.Models
                     salesLog.Add($"D{i - 12}", 0);
                 }
             }
-        }
+        }        
     }
 }
 
