@@ -7,18 +7,21 @@ namespace Capstone.Models
 {
     public class Logs
     {
-        private string aPath { get; }
-        
+        private string aPath { get; }        
         private string sPath { get; }
-
         private string itemPath { get; }
+        private Dictionary<string, int> salesLog = new Dictionary<string, int>();
+        public VendoMatic800 Machine;
 
-        public Logs()
+
+        public Logs(VendoMatic800 machine)
         {
             aPath = "..\\..\\..\\LogsLocations\\Log.txt";
             //TODO: format file name for log
             sPath = $"..\\..\\..\\LogsLocations\\SalesReport.txt";
             itemPath = "..\\..\\..\\..\\vendingmachine.csv";
+            SalesLogConstructor();
+            Machine = machine;
         }
 
         public Dictionary<string, VendingItem> Load()
@@ -63,6 +66,83 @@ namespace Capstone.Models
             }
             
             return true;
+        }
+
+        public void PrintSalesLog()
+        {
+            try
+            {
+                using (StreamReader reader = new StreamReader(aPath))
+                {
+
+                    // reads through audit log and counts how much of each item was purchsed
+                    // the count is stored in salesLog then printed to file
+                    while (!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        if (line.Contains("|"))
+                        {
+                            int index = line.IndexOf("|");
+                            string slotLocation = line.Substring(index + 1, 2);
+                            if (salesLog.ContainsKey(slotLocation))
+                            {
+                                salesLog[slotLocation]++;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(sPath))
+                {
+                    string productName = "";
+                    foreach (KeyValuePair<string, int> slot in salesLog)
+                    {
+                        if (Machine.ProductLeft.ContainsKey(slot.Key))
+                        {
+                            productName = Machine.ProductLeft[slot.Key].ProductName;
+                        }
+
+                        writer.WriteLine(productName + " | " + slot.Value);
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void SalesLogConstructor()
+        {
+            //this method sets up a dictionary for the sales log
+            //it can be changed to include more or less slot numbers            
+            for (int i = 1; i <= 16; i++)
+            {
+                if (i <= 4)
+                {
+                    salesLog.Add($"A{i}", 0);
+                }
+                else if (i <= 8)
+                {
+                    salesLog.Add($"B{i - 4}", 0);
+                }
+                else if (i <= 12)
+                {
+                    salesLog.Add($"C{i - 8}", 0);
+                }
+                else
+                {
+                    salesLog.Add($"D{i - 12}", 0);
+                }
+            }
         }
     }
 }

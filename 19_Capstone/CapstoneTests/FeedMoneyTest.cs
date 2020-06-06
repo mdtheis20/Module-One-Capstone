@@ -8,7 +8,7 @@ namespace CapstoneTests
 {    
     public class FeedMoneyTest
     {
-        
+        decimal CurrentMoney = 0;
         
         
     }

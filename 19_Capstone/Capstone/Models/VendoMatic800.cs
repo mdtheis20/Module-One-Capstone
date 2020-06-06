@@ -7,38 +7,21 @@ using CLI;
 namespace Capstone.Models
 {
     public class VendoMatic800
-    {
-        private List<string> salesLog;
-
+    {        
         private List<string> auditLog = new List<string>();
-        
-
         public MoneyManagement manager;
         public Logs logs;
-
-        //public MainMenu MainMenu = new MainMenu();
-        //public SubMenu1 PurchaseMenu = new SubMenu1("PurchaseMenu");
-        //public SubMenu1 SelectProduct = new SubMenu1("SelectProduct");
-        //public SubMenu1 FeedMoney = new SubMenu1("FeedMoney");
-        //public SubMenu1 DisplayItems = new SubMenu1("DisplayItems");
-        //public SubMenu1 DisplayMessage = new SubMenu1("DisplayMessage");
-
-
-
-
 
         private Dictionary<string, string> auditLogWriter = new Dictionary<string, string>()
         {
             {"fm", "FEED MONEY" }, {"gc", "GIVE CHANGE"}
         };
 
-        
-
         public Dictionary<string, VendingItem> ProductLeft { get; private set; }
 
         public VendoMatic800()
         {
-            logs = new Logs();
+            logs = new Logs(this);
             manager = new MoneyManagement(this);
             ProductLeft = logs.Load();
 
@@ -84,8 +67,13 @@ namespace Capstone.Models
             {
                 string displayName = line.Value.ProductName;
                 string displayPrice = line.Value.Price.ToString("c");
+                string spacer = "";
+                for (int i = 1; i < (20 - displayName.Length); i++) // spacer to line up |
+                {
+                    spacer += " ";
+                }
                 int displayNumber = line.Value.Count;
-                Console.WriteLine($"{ line.Key} {displayName} {displayPrice} {displayNumber} left");
+                Console.WriteLine($"\t{ line.Key} | {displayName}{spacer} | {displayPrice} | {displayNumber} left");
             }
         }
 
@@ -106,7 +94,7 @@ namespace Capstone.Models
             }
             else if (ProductLeft.ContainsKey(key))
             {
-                transactionType = ProductLeft[key].ProductName + " " +  ProductLeft[key].SlotLocation;
+                transactionType = ProductLeft[key].ProductName + " " +  "|" +ProductLeft[key].SlotLocation;
             }
             string entry = time + " " + transactionType + " " + money;
 
